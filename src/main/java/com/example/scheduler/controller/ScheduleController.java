@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -51,27 +52,34 @@ public class ScheduleController {
 
     // 스케줄 전체 조회
     @GetMapping
-    public List<ScheduleResponseDto> searchAllSchedules() {
+    public List<ScheduleResponseDto> searchAllSchedules(@RequestParam(required = false) String checkDate, @RequestParam(required = false) String checkname) {
 
         // 조회 리스트 생성
-        List<ScheduleResponseDto> responseList = new ArrayList<>();
+        List<ScheduleResponseDto> searchList = new ArrayList<>();
 
         // 조회 리스트에 스케줄 데이터 넣기
-        for(Schedule schedule : schedules.values()) {
+        for (Schedule schedule : schedules.values()) {
+
+            // 수정일 동일 여부 체크
+            if (checkDate != null && !schedule.getDate().toString().equals(checkDate)) {
+                continue;
+            }
+
+            // 작성자명 동일 여부 체크
+            if (checkname != null && !schedule.getName().equals(checkname)) {
+                continue;
+            }
+
+            // 조건을 통과한 스케줄 리스트에 추가
             ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
-            responseList.add(responseDto);
+            searchList.add(responseDto);
         }
 
-        //- [ ]  다음 조건을 바탕으로 등록된 일정 목록을 전부 조회
-        //    - [ ]  `수정일` (형식 : YYYY-MM-DD)
-        //    - [ ]  `작성자명`
-        //- [ ]  조건 중 한 가지만을 충족하거나, 둘 다 충족을 하지 않을 수도, 두 가지를 모두 충족할 수도 있습니다.
-
-        // 수정일 기준 내림차순 정렬
-
+        //스케줄 리스트 수정일 기준 내림차순 정렬
+        searchList.sort((s1, s2) -> s2.getName().compareTo(s1.getName()));
 
         // 조회 리스트 반환
-        return responseList;
+        return searchList;
     }
 
     // ID로 스케줄 조회
