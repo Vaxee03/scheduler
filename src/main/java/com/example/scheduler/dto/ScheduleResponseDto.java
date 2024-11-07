@@ -10,7 +10,7 @@ public class ScheduleResponseDto {
     private Integer id;
     private String title;
     private String description;
-    private Integer password;
+    private Long password;
     private LocalDate startPeriod;
 
     public ScheduleResponseDto(Schedule schedule) {
