@@ -5,14 +5,17 @@ import com.example.scheduler.dto.ScheduleResponseDto;
 import com.example.scheduler.entity.Schedule;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/scheduler")
@@ -39,7 +42,26 @@ public class ScheduleController {
         // Inmemory DB에 Schedule을 저장
         schedules.put(scheduleId, Schedule);
 
-        //생성 성공 출력
+        //생성 성공 반환
         return new ResponseEntity<>(new ScheduleResponseDto(Schedule), HttpStatus.CREATED);
     }
+
+
+    //스케줄 전체 조회
+    @GetMapping
+    public List<ScheduleResponseDto> searchAllSchedules() {
+
+        //조회 리스트 생성
+        List<ScheduleResponseDto> responseList = new ArrayList<>();
+
+        //조회 리스트에 스케줄 데이터 넣기
+        for(Schedule schedule : schedules.values()) {
+            ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
+            responseList.add(responseDto);
+        }
+
+        //조회 리스트 반환
+        return responseList;
+    }
+
 }
