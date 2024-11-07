@@ -13,7 +13,7 @@ public class Schedule {
     // 필드 선언
     private Integer id;
     private String title;
-    private String description;
+    private String name;
     private Long password;
     private LocalDate date;
 
@@ -22,12 +22,12 @@ public class Schedule {
         this.title = dto.getTitle();
     }
 
-    public void updateDescription(ScheduleRequestDto dto) {
-        this.description = dto.getDescription();
+    public void updateName(ScheduleRequestDto dto) {
+        this.name = dto.getName();
     }
 
     public void update(ScheduleRequestDto dto) {
         this.title = dto.getTitle();
-        this.description = dto.getDescription();
+        this.name = dto.getName();
     }
 }

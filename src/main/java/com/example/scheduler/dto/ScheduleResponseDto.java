@@ -11,7 +11,7 @@ public class ScheduleResponseDto {
     // 필드 선언
     private Integer id;
     private String title;
-    private String description;
+    private String name;
     private Long password;
     private LocalDate date;
 
@@ -19,7 +19,7 @@ public class ScheduleResponseDto {
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
         this.title = schedule.getTitle();
-        this.description = schedule.getDescription();
+        this.name = schedule.getName();
         this.password = schedule.getPassword();
         this.date = schedule.getDate();
     }
