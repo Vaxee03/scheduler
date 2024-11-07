@@ -10,12 +10,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Schedule {
 
+    // 필드 선언
     private Integer id;
     private String title;
     private String description;
     private Long password;
     private LocalDate startPeriod;
 
+    //생성자
     public void updateTitle(ScheduleRequestDto dto) {
         this.title = dto.getTitle();
     }
