@@ -13,7 +13,7 @@ public class ScheduleResponseDto {
     private String title;
     private String description;
     private Long password;
-    private LocalDate startPeriod;
+    private LocalDate date;
 
     // 생성자
     public ScheduleResponseDto(Schedule schedule) {
@@ -21,7 +21,7 @@ public class ScheduleResponseDto {
         this.title = schedule.getTitle();
         this.description = schedule.getDescription();
         this.password = schedule.getPassword();
-        this.startPeriod = schedule.getStartPeriod();
+        this.date = schedule.getDate();
     }
 
 }

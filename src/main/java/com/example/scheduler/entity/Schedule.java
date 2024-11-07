@@ -15,7 +15,7 @@ public class Schedule {
     private String title;
     private String description;
     private Long password;
-    private LocalDate startPeriod;
+    private LocalDate date;
 
     //생성자
     public void updateTitle(ScheduleRequestDto dto) {
