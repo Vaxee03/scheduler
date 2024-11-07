@@ -52,7 +52,7 @@ public class ScheduleController {
 
     // 스케줄 전체 조회
     @GetMapping
-    public List<ScheduleResponseDto> searchAllSchedules(@RequestParam(required = false) String checkDate, @RequestParam(required = false) String checkname) {
+    public List<ScheduleResponseDto> searchAllSchedules(@RequestParam(required = false) String checkDate, @RequestParam(required = false) String checkName) {
 
         // 조회 리스트 생성
         List<ScheduleResponseDto> searchList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class ScheduleController {
             }
 
             // 작성자명 동일 여부 체크
-            if (checkname != null && !schedule.getName().equals(checkname)) {
+            if (checkName != null && !schedule.getName().equals(checkName)) {
                 continue;
             }
 
@@ -76,7 +76,7 @@ public class ScheduleController {
         }
 
         //스케줄 리스트 수정일 기준 내림차순 정렬
-        searchList.sort((s1, s2) -> s2.getName().compareTo(s1.getName()));
+        searchList.sort((s1, s2) -> s2.getDate().compareTo(s1.getDate()));
 
         // 조회 리스트 반환
         return searchList;
