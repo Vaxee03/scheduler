@@ -5,6 +5,7 @@ import com.example.scheduler.dto.ScheduleResponseDto;
 import com.example.scheduler.entity.Schedule;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -89,7 +90,7 @@ public class ScheduleController {
         return new ResponseEntity<>(new ScheduleResponseDto(schedule), HttpStatus.OK);
     }
 
-    // 일정 수정
+    // 스케줄 수정
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable Integer id, @RequestBody ScheduleRequestDto dto) {
 
@@ -131,4 +132,27 @@ public class ScheduleController {
         return new ResponseEntity<>(new ScheduleResponseDto(schedule), HttpStatus.OK);
     }
 
+    // 스케줄 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule (@PathVariable Integer id, @RequestBody ScheduleRequestDto dto) {
+
+        // 입력한 데이터를 가져옴
+        Schedule schedule = schedules.get(id);
+
+        // NULL 값 여부 체크 ( Schedule Id Key )
+        if(schedule == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Password 동일 여부 체크
+        else if(!schedule.getPassword().equals(dto.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        // 스케줄 삭제
+        else {
+            schedules.remove(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
 }
