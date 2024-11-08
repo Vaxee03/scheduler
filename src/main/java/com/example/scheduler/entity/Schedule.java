@@ -20,14 +20,17 @@ public class Schedule {
     //생성자
     public void updateTitle(ScheduleRequestDto dto) {
         this.title = dto.getTitle();
+        this.date = LocalDate.now();
     }
 
     public void updateName(ScheduleRequestDto dto) {
         this.name = dto.getName();
+        this.date = LocalDate.now();
     }
 
     public void update(ScheduleRequestDto dto) {
         this.title = dto.getTitle();
         this.name = dto.getName();
+        this.date = LocalDate.now();
     }
 }
